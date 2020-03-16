@@ -78,13 +78,33 @@ class Graph:
                     stack.push(vert)
         print(visited)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=None):
         """ Print each vertex in depth-first order beginning from starting_vertex.
         This should be done using recursion. """
+        if visited is None:
+            visited = set()
+
         # check if that node has been visited already?
-        # call dft on each neighbor below it
-        # wouldn't you need to also pass down the vertices?
-        pass
+        if starting_vertex not in visited:
+            # print and add to visited
+            print(starting_vertex)
+            visited.add(starting_vertex)
+            neighbors = self.get_neighbors(starting_vertex)
+            # call dft on each neighbor below it
+            for vert in neighbors:
+                self.dft_recursive(vert, visited)
+
+    def dft_recursive2(self, starting_vertex):
+        visited = set()
+
+        def driver(visited, start):
+            if start not in visited:
+                visited.add(start)
+                neighbors = self.get_neighbors(start)
+                for vert in neighbors:
+                    driver(visited, vert)
+        driver(visited, starting_vertex)
+        print(visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """ Return a list containing the shortest path from starting_vertex to destination_vertex in breath-first order. """
@@ -149,8 +169,12 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
+    print('DFT')
     graph.dft(1)
-    # graph.dft_recursive(1)
+    print('DFT - Recursive')
+    graph.dft_recursive(1)
+    print('DFT - Recursive 2')
+    graph.dft_recursive2(1)
 
     # '''
     # Valid BFS path:
