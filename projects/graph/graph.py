@@ -37,34 +37,38 @@ class Graph:
             print("ERROR: Vertix does not exist")
 
     def bft(self, starting_vertex):
-        """
-        Print each vertex in breadth-first order
-        beginning from starting_vertex.
-        """
+        """ Print each vertex in breadth-first order beginning from starting_vertex."""
+        # Create a queue
+        # Enqueue the starting vertex
+        # Create a set to store visited vertices
+        # While the queue is not empty
+        # Dequeue
+        # check if it's been visited
+        # if it hasn't been visited
+        # Mark it as visited
+        # enqueue all of its neighbors
         pass  # TODO
 
     def dft(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        """
+        """ Print each vertex in depth-first order beginning from starting_vertex."""
+        # Create a stack
+        # Enqueue the starting vertex
+        # Create a set to store visited vertices
+        # While the stack is not empty
+        # Dequeue
+        # check if it's been visited
+        # if it hasn't been visited
+        # Mark it as visited
+        # enqueue all of its neighbors
         pass  # TODO
 
     def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-
-        This should be done using recursion.
-        """
+        """ Print each vertex in depth-first order beginning from starting_vertex.
+        This should be done using recursion. """
         pass  # TODO
 
     def bfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing the shortest path from
-        starting_vertex to destination_vertex in
-        breath-first order.
-        """
+        """ Return a list containing the shortest path from starting_vertex to destination_vertex in breath-first order."""
         pass  # TODO
 
     def dfs(self, starting_vertex, destination_vertex):
