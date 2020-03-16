@@ -33,3 +33,7 @@
 - two dimensional array that has built-in edge weights
 - each inner array represents a node, and each array element represents its relationship to other nodes
 - graphs are dense when they have a high number of edges per vertex (as in many relationships per node)
+
+## Breadth First Search
+
+- useful for finding the shortest path on an unweighted graph
