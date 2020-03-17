@@ -4,7 +4,7 @@ words = f.read().lower().split("\n")
 f.close()
 
 # Step 2: Build the Graph
-# Create an equality functions
+# don't go the equality route, because now you are searching for
 
 
 def words_are_neighbors(w1, w2):
