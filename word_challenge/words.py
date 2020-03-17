@@ -1,5 +1,6 @@
 from util import Queue
-
+f = open('words.txt', 'r')
+words = f.read().lower().split("\n")
 # Step 2: Build the Graph
 
 # Step 3: Traverse the Graph
