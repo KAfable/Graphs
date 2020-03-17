@@ -169,7 +169,31 @@ class Graph:
                         s.push([*path, neighbor])
         return visited
 
-    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
+        """
+        Return a list containing a path from
+        starting_vertex to destination_vertex in
+        depth-first order.
+​
+        This should be done using recursion.
+        """
+        if visited is None:
+            visited = set()
+        if path is None:
+            path = []
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            path_copy = path.copy()
+            path_copy.append(starting_vertex)
+            if starting_vertex == destination_vertex:
+                return path_copy
+            for neighbor in self.get_neighbors(starting_vertex):
+                new_path = self.dfs_recursive(
+                    neighbor, destination_vertex, visited, path_copy)
+                if new_path is not None:
+                    return new_path
+
+    def dfs_recursive_b(self, starting_vertex, destination_vertex, visited=None):
         """ Return a list containing a path from starting_vertex to destination_vertex in
         depth-first order. This should be done using recursion. """
         # add visited and path, since those need to be passed in
@@ -256,4 +280,7 @@ if __name__ == '__main__':
     '''
     print(f'DFS Start')
     print(graph.dfs(1, 6))
+    print(f'DFS Recursive Start')
     print(graph.dfs_recursive(1, 6))
+    print(f'DFS Recursive B Start')
+    print(graph.dfs_recursive_b(1, 6))
