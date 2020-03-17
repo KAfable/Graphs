@@ -40,8 +40,17 @@ Example output
 
 Clarifications:
 
-- The input will not be empty.
-- There are no cycles in the input.
+- The input will not be empty
+- There are no cycles in the input
 - There are no "repeated" ancestors – if two individuals are connected, it is by exactly one path.
-- IDs will always be positive integers.
-- A parent may have any number of children.
+- IDs will always be positive integers
+- A parent may have any number of children
+
+## Notes
+
+- seems like a DFS approach to get the earliest ancestor
+- the earliest ancestor of a child is the earliest ancestor of its parent
+- need to have logic to compare
+- how do I keep track how far an ancestor is?
+- base case is whenever there are no more parents
+- what gets returned? You would return older ancestor
