@@ -170,13 +170,8 @@ class Graph:
         return visited
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
-        """
-        Return a list containing a path from
-        starting_vertex to destination_vertex in
-        depth-first order.
-​
-        This should be done using recursion.
-        """
+        """ Return a list containing a path from starting_vertex to destination_vertex in
+        depth-first order. This should be done using recursion. """
         if visited is None:
             visited = set()
         if path is None:
