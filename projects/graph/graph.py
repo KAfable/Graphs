@@ -87,12 +87,14 @@ class Graph:
         # check if that node has been visited already?
         if starting_vertex not in visited:
             # print and add to visited
-            print(starting_vertex)
+            # print(starting_vertex)
             visited.add(starting_vertex)
             neighbors = self.get_neighbors(starting_vertex)
             # call dft on each neighbor below it
             for vert in neighbors:
                 self.dft_recursive(vert, visited)
+        else:
+            print(visited)
 
     def dft_recursive2(self, starting_vertex):
         visited = set()
@@ -132,21 +134,76 @@ class Graph:
                 else:
                     # Enqueue A PATH TO all it's neighbors
                     for neighbor in self.get_neighbors(vertex):
-                        queue.enqueue([])
-                # MAKE A COPY OF THE PATH
-                # ENQUEUE THE COPY
-
+                        # MAKE A COPY OF THE PATH AND ENQUEUE THE COPY
+                        queue.enqueue([*path, neighbor])
         return visited
 
     def dfs(self, starting_vertex, destination_vertex):
         """Return a list containing a path from starting_vertex to destination_vertex in
             depth-first order. """
-        pass  # TODO
+        # Create a queue
+        s = Stack()
+        # Enqueue A PATH TO the starting vertex
+        s.push([starting_vertex])
+        # Create a set to store visited vertices
+        visited = set()
 
-    def dfs_recursive(self, starting_vertex):
+        # While the queue is not empty
+        while s.size() > 0:
+            # Dequeue the first PATH
+            path = s.pop()
+            # GRAB THE VERTEX FROM THE END OF THE PATH
+            vertex = path[-1]
+            # If it hasn't been visited...
+            if vertex not in visited:
+                # Mark it as visited
+                visited.add(vertex)
+                # CHECK IF IT'S THE TARGET
+                if vertex == destination_vertex:
+                    # IF SO, RETURN THE PATH
+                    return path
+                else:
+                    # Enqueue A PATH TO all it's neighbors
+                    for neighbor in self.get_neighbors(vertex):
+                        # MAKE A COPY OF THE PATH AND ENQUEUE THE COPY
+                        s.push([*path, neighbor])
+        return visited
+
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """ Return a list containing a path from starting_vertex to destination_vertex in
         depth-first order. This should be done using recursion. """
-        pass  # TODO
+        if visited is None:
+            visited = set()
+        if path is None:
+            path = []
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            path_copy = path.copy()
+            path_copy.append(starting_vertex)
+            if starting_vertex == destination_vertex:
+                return path_copy
+            for neighbor in self.get_neighbors(starting_vertex):
+                new_path = self.dfs_recursive(
+                    neighbor, destination_vertex, visited, path_copy)
+                if new_path is not None:
+                    return new_path
+
+    def dfs_recursive_b(self, starting_vertex, destination_vertex, visited=None):
+        """ Return a list containing a path from starting_vertex to destination_vertex in
+        depth-first order. This should be done using recursion. """
+        # add visited and path, since those need to be passed in
+        if visited is None:
+            visited = set()
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            if starting_vertex == destination_vertex:
+                return [starting_vertex]
+            for vertex in self.vertices[starting_vertex]:
+                vertices = self.dfs_recursive(
+                    vertex, destination_vertex, visited)
+                if destination_vertex in vertices:
+                    return [starting_vertex, *vertices]
+        return []
 
 
 if __name__ == '__main__':
@@ -211,10 +268,14 @@ if __name__ == '__main__':
     print(f'BFS Start')
     print(graph.bfs(1, 6))
 
-    # '''
-    # Valid DFS paths:
-    #     [1, 2, 4, 6]
-    #     [1, 2, 4, 7, 6]
-    # '''
-    # print(graph.dfs(1, 6))
-    # print(graph.dfs_recursive(1, 6))
+    '''
+    Valid DFS paths:
+        [1, 2, 4, 6]
+        [1, 2, 4, 7, 6]
+    '''
+    print(f'DFS Start')
+    print(graph.dfs(1, 6))
+    print(f'DFS Recursive Start')
+    print(graph.dfs_recursive(1, 6))
+    print(f'DFS Recursive B Start')
+    print(graph.dfs_recursive_b(1, 6))
