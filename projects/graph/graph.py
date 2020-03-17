@@ -108,7 +108,35 @@ class Graph:
 
     def bfs(self, starting_vertex, destination_vertex):
         """ Return a list containing the shortest path from starting_vertex to destination_vertex in breath-first order. """
-        pass  # TODO
+        # Create a queue
+        queue = Queue()
+        # Enqueue A PATH TO the starting vertex
+        queue.enqueue([starting_vertex])
+        # Create a set to store visited vertices
+        visited = set()
+
+        # While the queue is not empty
+        while queue.size() > 0:
+            # Dequeue the first PATH
+            path = queue.dequeue()
+            # GRAB THE VERTEX FROM THE END OF THE PATH
+            vertex = path[-1]
+            # If it hasn't been visited...
+            if vertex not in visited:
+                # Mark it as visited
+                visited.add(vertex)
+                # CHECK IF IT'S THE TARGET
+                if vertex == destination_vertex:
+                    # IF SO, RETURN THE PATH
+                    return path
+                else:
+                    # Enqueue A PATH TO all it's neighbors
+                    for neighbor in self.get_neighbors(vertex):
+                        queue.enqueue([])
+                # MAKE A COPY OF THE PATH
+                # ENQUEUE THE COPY
+
+        return visited
 
     def dfs(self, starting_vertex, destination_vertex):
         """Return a list containing a path from starting_vertex to destination_vertex in
@@ -176,11 +204,12 @@ if __name__ == '__main__':
     print('DFT - Recursive 2')
     graph.dft_recursive2(1)
 
-    # '''
-    # Valid BFS path:
-    #     [1, 2, 4, 6]
-    # '''
-    # print(graph.bfs(1, 6))
+    '''
+    Valid BFS path:
+        [1, 2, 4, 6]
+    '''
+    print(f'BFS Start')
+    print(graph.bfs(1, 6))
 
     # '''
     # Valid DFS paths:
