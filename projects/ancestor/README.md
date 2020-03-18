@@ -54,3 +54,4 @@ Clarifications:
 - how do I keep track how far an ancestor is?
 - base case is whenever there are no more parents
 - what gets returned? You would return older ancestor
+- can be solved either DFS or BFS
