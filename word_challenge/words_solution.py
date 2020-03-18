@@ -1,4 +1,5 @@
 from util import Stack, Queue  # These may come in handy
+import string
 
 # Given two words (begin_word and end_word), and a dictionary's word list, return the shortest transformation
 # sequence from begin_word to end_word, such that:
@@ -31,14 +32,14 @@ f.close()
 
 
 def get_neighbors(word):
-    ''' Get all words that are one letter away from the given word. If you built an adjacency list, it would take a really long time, it'll shorten future look ups.'''
+    ''' Get all words that are one letter away from the given word. If you built an adjacency list, it would take a really long time initially, but it'll shorten future look ups. However adding a new word will also take O(n) each time.'''
     # Get same length words first
     results = []
     list_word = list(word)
     # Go through each letter in the word
     for i in range(len(list_word)):
         # swap with each letter in the alphabet
-        for letter in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']:
+        for letter in string.ascii_lowercase:
             # If resulting word is in the word_set, add to results
             temp_word = list_word.copy()
             temp_word[i] = letter
