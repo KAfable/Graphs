@@ -32,51 +32,36 @@ class Graph:
         """ Print each vertex in breadth-first order beginning from starting_vertex."""
         # Create a queue
         queue = Queue()
-
-        # Enqueue the starting vertex
         queue.enqueue(starting_vertex)
-
-        # Create a set to store visited vertices
         visited = set()
 
-        # While the queue is not empty
         while queue.size() > 0:
-            # Dequeue to travel towards break case
             vertex = queue.dequeue()
-            # if it hasn't been visited
             if vertex not in visited:
-                # Mark it as visited
                 visited.add(vertex)
-                # enqueue all of its neighbors
+                print(vertex)
                 neighbors = self.get_neighbors(vertex)
                 for vert in neighbors:
                     queue.enqueue(vert)
-        print(visited)
+        # print(visited)
 
     def dft(self, starting_vertex):
         """ Print each vertex in depth-first order beginning from starting_vertex."""
         # Create a stack
         stack = Stack()
-
-        # Push the starting vertex
         stack.push(starting_vertex)
-
-        # Create a set to store visited vertices
         visited = set()
 
         # While the stack is not empty
         while stack.size() > 0:
-            # Dequeue
             current = stack.pop()
-            # if it hasn't been visited
             if current not in visited:
-                # Mark it as visited
                 visited.add(current)
-                # enqueue all of its neighbors
+                print(current)
                 neighbors = self.get_neighbors(current)
                 for vert in neighbors:
                     stack.push(vert)
-        print(visited)
+        # print(visited)
 
     def dft_recursive(self, starting_vertex, visited=None):
         """ Print each vertex in depth-first order beginning from starting_vertex.
@@ -87,26 +72,25 @@ class Graph:
         # check if that node has been visited already?
         if starting_vertex not in visited:
             # print and add to visited
-            # print(starting_vertex)
+            print(starting_vertex)
             visited.add(starting_vertex)
             neighbors = self.get_neighbors(starting_vertex)
             # call dft on each neighbor below it
             for vert in neighbors:
                 self.dft_recursive(vert, visited)
-        else:
-            print(visited)
 
-    def dft_recursive2(self, starting_vertex):
+    def dft_recursive_b(self, starting_vertex):
         visited = set()
 
         def driver(visited, start):
             if start not in visited:
                 visited.add(start)
+                print(start)
                 neighbors = self.get_neighbors(start)
                 for vert in neighbors:
                     driver(visited, vert)
         driver(visited, starting_vertex)
-        print(visited)
+        # print(visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """ Return a list containing the shortest path from starting_vertex to destination_vertex in breath-first order. """
@@ -121,6 +105,7 @@ class Graph:
         while queue.size() > 0:
             # Dequeue the first PATH
             path = queue.dequeue()
+            # print(path)
             # GRAB THE VERTEX FROM THE END OF THE PATH
             vertex = path[-1]
             # If it hasn't been visited...
@@ -178,8 +163,7 @@ class Graph:
             path = []
         if starting_vertex not in visited:
             visited.add(starting_vertex)
-            path_copy = path.copy()
-            path_copy.append(starting_vertex)
+            path_copy = [*path, starting_vertex]
             if starting_vertex == destination_vertex:
                 return path_copy
             for neighbor in self.get_neighbors(starting_vertex):
@@ -259,7 +243,7 @@ if __name__ == '__main__':
     print('DFT - Recursive')
     graph.dft_recursive(1)
     print('DFT - Recursive 2')
-    graph.dft_recursive2(1)
+    # graph.dft_recursive2(1)
 
     '''
     Valid BFS path:
