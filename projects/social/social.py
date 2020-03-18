@@ -1,4 +1,5 @@
 import random
+from util import Stack, Queue
 
 
 class User:
@@ -43,36 +44,43 @@ class SocialGraph:
         for i in range(num_users):
             self.add_user(f"User {i+ 1}")
 
-        print('users added')
-        print(self.users)
-
         # Create friendships
         possible_friendships = []
         for user_id in self.users:
-            print(f"user_id : {user_id}")
             for friend_id in range(user_id + 1, self.last_id + 1):
                 possible_friendships.append((user_id, friend_id))
-        print(possible_friendships)
         random.shuffle(possible_friendships)
-        print(possible_friendships)
 
         # create n friendships where n = avg_friendships * num_users // 2
-        # avg_friendships = total-friendships / number_users
-        for i in range(num_users, )
+        # divided over 2 because there are two friendships per connection (both ways)
+        for i in range(num_users * avg_friendships // 2):
+            (friend, other_friend) = possible_friendships[i]
+            self.add_friendship(friend, other_friend)
 
     def get_all_social_paths(self, user_id):
-        """ Takes a user's user_id as an argument
-        Returns a dictionary containing every user in that user's
-        extended network with the shortest friendship path between them.
-        The key is the friend's ID and the value is the path."""
+        """ Takes a user's user_id as an argument. Returns a dictionary containing every user in that user's
+        extended network with the shortest friendship path between them. The key is the friend's ID and the value is the path."""
+        # use BFT to get to each person in the connected component
+        # use BFS to get to the shortest path to each component
+        q = Queue()
+        q.enqueue(self.friendships[user_id])
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        while q.size() > 0:
+            friendships = q.dequeue()
+            print(f'current friendships: {friendships}')
+            for friend in friendships:
+                if friend not in visited:
+                    visited.add(friend)
+                    q.enqueue(self.friendships[friend])
+
+                # looks like you'll have to do a traversal of that connected component
+
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 6)
-    # print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    sg.populate_graph(10, 2)
+    print(sg.friendships)
+    connections = sg.get_all_social_paths(1)
+    print(connections)
