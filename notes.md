@@ -41,3 +41,9 @@
 - it explores each node that are X distance from the origin node, before moving to X + 1 distance
 - does not re-explore or re-search nodes so it never revisits nodes
 - useful in social networking applications for finding mutual friends
+
+## Graph Problems
+
+1. Dense or sparse?
+2. Cyclic or Acyclic?
+3. Where are the nodes or edges?
