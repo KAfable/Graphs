@@ -1,5 +1,6 @@
 import random
 from util import Stack, Queue
+import pprint
 
 
 class User:
@@ -79,7 +80,7 @@ class SocialGraph:
                     else:
                         for neighbor in self.friendships[vertex]:
                             q2.enqueue([*path, neighbor])
-            return (origin, destination)
+            return [origin, destination]
 
         q = Queue()
         q.enqueue(self.friendships[user_id])
@@ -99,7 +100,7 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(100, 2)
-    print(sg.friendships)
+    sg.populate_graph(10, 5)
+    print(f"Friendships: \n{pprint.pformat(sg.friendships)}")
     connections = sg.get_all_social_paths(1)
-    print(f'Connections: \n{connections}')
+    print(f"1's connections: \n{pprint.pformat(connections)}")
