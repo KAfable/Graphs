@@ -1,7 +1,9 @@
 
 def earliest_ancestor(ancestors, starting_node):
     # what are the base cases?
-    #
+
+    # build a graph
+    # traverse the graph
     if ancestors == None:
         return starting_node
 
