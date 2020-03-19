@@ -58,29 +58,48 @@ class SocialGraph:
             self.add_friendship(friend, other_friend)
 
     def get_all_social_paths(self, user_id):
-        """ Takes a user's user_id as an argument. Returns a dictionary containing every user in that user's
-        extended network with the shortest friendship path between them. The key is the friend's ID and the value is the path."""
+        """ Takes a user's user_id as an argument. Returns a dictionary containing every user in that user's extended network with the shortest friendship path between them. The key is the friend's ID and the value is the path."""
+
         # use BFT to get to each person in the connected component
         # use BFS to get to the shortest path to each component
+
+        def get_shortest_path(origin, destination):
+            """Helper function that gets the shortest path to a destination node via BFS"""
+            q2 = Queue()
+            q2.enqueue([origin])
+            visited = set()
+
+            while q.size() > 0:
+                path = q2.dequeue()
+                vertex = path[-1]
+                if vertex not in visited:
+                    visited.add(vertex)
+                    if vertex == destination:
+                        return path
+                    else:
+                        for neighbor in self.friendships[vertex]:
+                            q2.enqueue([*path, neighbor])
+            return (origin, destination)
+
         q = Queue()
         q.enqueue(self.friendships[user_id])
         visited = {}  # Note that this is a dictionary, not a set
         while q.size() > 0:
             friendships = q.dequeue()
-            print(f'current friendships: {friendships}')
+            # print(f'current friendships: {friendships}')
+            # for each friend in friendships
             for friend in friendships:
-                if friend not in visited:
-                    visited.add(friend)
+                # friendships is a set of integers
+                if friend not in visited and friend != user_id:
+                    visited[friend] = get_shortest_path(user_id, friend)
                     q.enqueue(self.friendships[friend])
-
                 # looks like you'll have to do a traversal of that connected component
-
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
+    sg.populate_graph(100, 2)
     print(sg.friendships)
     connections = sg.get_all_social_paths(1)
-    print(connections)
+    print(f'Connections: \n{connections}')
