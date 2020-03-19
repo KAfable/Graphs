@@ -31,48 +31,72 @@ player = Player(world.starting_room)
 traversal_path = []
 
 # stack of room objects
-s = Stack()
-s.push(player.current_room.id)
-visited = set()
+# s = Stack()
+# s.push(player.current_room.id)
+# visited = set()
 # the order of these directions could greatly affect the time based on the map
 
 
-def get_path(origin, destination):
-    '''Helper function that returns an array '''
-    pass
+# def get_path(origin_id, destination_id):
+#     '''Helper function that returns an array of directions to get to destination room via BFS.'''
+#     q = Queue()
+#     q.enqueue([origin_id])
+#     directions = []
+#     visited = set()
+#     while q.size() > 0:
+#         path = q.dequeue()
+#         current = path[-1]
+#         if current not in visited:
+#             visited.add(current)
+#             if current
 
+# let's use DFT to travel print out all rooms in any order
+stack = Stack()
+stack.push(player.current_room)
+visited = []
 
-while s.size() > 0:
-    destination = s.pop()
-    # TODO function get path to travel here
-    # TODO loop through path to get here
-    if destination not in visited:
-        # mark it as visited
-        visited.add(destination)
-        # add its neighbors to stack and keep exploring
-        directions = destination.get_exits()
+# While the stack is not empty
+while stack.size() > 0:
+    current = stack.pop()
+    if current.id not in visited:
+        visited.append(current.id)
+        # how do you get neighbors?
+        directions = current.get_exits()
         for d in directions:
-            s.push(destination.get_room_in_direction(d))
-    else:
-        pass
-        #
+            room = current.get_room_in_direction(d)
+            stack.push(room)
+print(len(visited))
 
+
+# destination = s.pop()
+# # TODO function get path to travel here
+# # TODO loop through path to get here
+# if destination not in visited:
+#     # mark it as visited
+#     visited.add(destination)
+#     # add its neighbors to stack and keep exploring
+#     directions = destination.get_exits()
+#     for d in directions:
+#         s.push(destination.get_room_in_direction(d))
+# else:
+#     pass
+#     #
 
 # TRAVERSAL TEST
-visited_rooms = set()
-player.current_room = world.starting_room
-visited_rooms.add(player.current_room)
+# visited_rooms = set()
+# player.current_room = world.starting_room
+# visited_rooms.add(player.current_room)
 
-for move in traversal_path:
-    player.travel(move)
-    visited_rooms.add(player.current_room)
+# for move in traversal_path:
+#     player.travel(move)
+#     visited_rooms.add(player.current_room)
 
-if len(visited_rooms) == len(room_graph):
-    print(
-        f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
-else:
-    print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
+# if len(visited_rooms) == len(room_graph):
+#     print(
+#         f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+# else:
+#     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
+#     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
 #######
