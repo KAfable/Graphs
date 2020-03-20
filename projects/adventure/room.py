@@ -14,8 +14,11 @@ class Room:
         self.x = x
         self.y = y
 
-    def __str__(self):
-        return f"\n-------------------\n\n{self.name}\n\n   {self.description}\n\n{self.get_exits_string()}\n"
+    # def __str__(self):
+    #     return f"\n-------------------\n\n{self.name}\n\n   {self.description}\n\n{self.get_exits_string()}\n"
+
+    def __repr__(self):
+        return f"{self.name}, (n - {self.n_to.id if self.n_to is not None else None}, s - {self.s_to.id if self.s_to is not None else None}, w - {self.w_to.id if self.w_to is not None else None}, e - {self.e_to.id if self.e_to is not None else None})"
 
     def print_room_description(self, player):
         print(str(self))
@@ -69,7 +72,9 @@ class Room:
 
     def is_neighbor(self, destination_id):
         '''Checks if the given id of a room is a neighbor and returns that direction. If not neighbor, returns false'''
+        print(f"Checking if {self} and {destination_id} are neighbors")
         for d in 'nswe':
-            if self.get_room_in_direction(d).id == destination_id:
+            room = self.get_room_in_direction(d)
+            if room and room.id == destination_id:
                 return d
         return False
